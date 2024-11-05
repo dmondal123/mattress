@@ -1,0 +1,10 @@
+.env
+.venv
+venv
+env
+__pycache__
+gd-gcp-rnd-genai-assessment-dc91519ce774.json
+node_modules/
+dist/
+build/
+

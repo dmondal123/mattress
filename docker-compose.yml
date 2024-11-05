@@ -1,0 +1,56 @@
+version: "3.8"
+
+services:
+  ########################
+  # API Backend Container
+  #######################
+  api:
+    platform: linux/amd64
+    container_name: gcp-assessment-backend-server
+    restart: always
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    environment:
+      - PYTHONUNBUFFERED=1 
+      - DB_USER=root
+      - DB_PASSWORD=mattressfirmgcp
+      - DB_NAME=mattress-firm
+      - DB_HOST=cloud-sql-proxy  
+      - DB_PORT=3306
+      - GOOGLE_APPLICATION_CREDENTIALS=/secrets/gd-gcp-rnd-genai-assessment-dc91519ce774.json
+    depends_on:
+      - cloud-sql-proxy  
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./gd-gcp-rnd-genai-assessment-dc91519ce774.json:/secrets/gd-gcp-rnd-genai-assessment-dc91519ce774.json:ro
+
+  ########################
+  # Cloud SQL Proxy
+  ########################
+  cloud-sql-proxy:
+    image: gcr.io/cloudsql-docker/gce-proxy:latest
+    command: >
+      /cloud_sql_proxy 
+      -instances=gd-gcp-rnd-genai-assessment:us-central1:gcp-mattress=tcp:0.0.0.0:3306 
+      -credential_file=/secrets/gd-gcp-rnd-genai-assessment-dc91519ce774.json
+    volumes:
+      - ./gd-gcp-rnd-genai-assessment-dc91519ce774.json:/secrets/gd-gcp-rnd-genai-assessment-dc91519ce774.json:ro  
+    ports:
+      - "3306:3306"
+
+  ########################
+  # Web Application
+  ########################
+  webapp:
+    platform: linux/amd64
+    container_name: gcp-assessment-webapp
+    restart: always
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    environment:
+    - VITE_APP_API_URL=http://127.0.0.1:8000/
+    ports:
+      - "80:80"

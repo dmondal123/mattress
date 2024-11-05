@@ -1,0 +1,22 @@
+/* Custom styles for Dialogflow CX Messenger */
+df-messenger {
+  --df-messenger-bubble-background: #f9f9f9; /* Change chat bubble background */
+  --df-messenger-bubble-text-color: #333; /* Change chat bubble text color */
+  --df-messenger-user-bubble-background: #007bff; /* Change user bubble background */
+  --df-messenger-user-bubble-text-color: #fff; /* Change user bubble text color */
+  --df-messenger-input-background: #fff; /* Change input field background */
+  --df-messenger-input-text-color: #000; /* Change input field text color */
+  --df-messenger-header-background: #007bff; /* Change header background */
+  --df-messenger-header-text-color: #fff; /* Change header text color */
+}
+
+/* Additional custom styles */
+.df-messenger-input {
+  border: 2px solid #007bff; /* Customize input border */
+  border-radius: 4px; /* Round input corners */
+}
+
+.df-messenger-send-button {
+  background-color: #28a745; /* Customize send button color */
+  color: #fff; /* Change send button text color */
+}
