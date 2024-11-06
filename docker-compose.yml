@@ -46,7 +46,7 @@ services:
   webapp:
     platform: linux/amd64
     container_name: gcp-assessment-webapp
-    restart: no
+    restart: always
     build:
       context: ./frontend
       dockerfile: ./Dockerfile
