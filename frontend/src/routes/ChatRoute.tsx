@@ -106,28 +106,27 @@ const Chat: React.FC = () => {
           ) {
             try {
               const finalOutput = (await getFinalOutput(sessionId)).data;
-              const newProducts: ProductType[] = finalOutput.map(
-                (product: ProductType) => ({
-                  name: product.name,
-                  images: product.images,
-                  size: product.size,
-                  comfort: product.comfort,
-                  best_for: product.best_for,
-                  mattress_type: product.mattress_type,
-                  cooling_technology: product.cooling_technology,
-                  motion_separation: product.motion_separation,
-                  pressure_relief: product.pressure_relief,
-                  support: product.support,
-                  adjustable_base_friendly: product.adjustable_base_friendly,
-                  breathable: product.breathable,
-                  num_reviews: product.num_reviews,
-                  current_price: product.current_price,
-                  rating: product.rating,
-                  mattress_in_a_box: product.mattress_in_a_box,
-                  height: product.height,
-                })
-              );
-              newProducts.forEach((newProduct) => addProductObject(newProduct));
+              const newProduct: ProductType = {
+                name: finalOutput.name,
+                images: finalOutput.images,
+                size: finalOutput.size,
+                comfort: finalOutput.comfort,
+                best_for: finalOutput.best_for,
+                mattress_type: finalOutput.mattress_type,
+                cooling_technology: finalOutput.cooling_technology,
+                motion_separation: finalOutput.motion_separation,
+                pressure_relief: finalOutput.pressure_relief,
+                support: finalOutput.support,
+                adjustable_base_friendly: finalOutput.adjustable_base_friendly,
+                breathable: finalOutput.breathable,
+
+                num_reviews: finalOutput.num_reviews,
+                current_price: finalOutput.current_price,
+                rating: finalOutput.rating,
+                mattress_in_a_box: finalOutput.mattress_in_a_box,
+                height: finalOutput.height,
+              };
+              addProductObject(newProduct);
               console.log("Final Output:", finalOutput);
             } catch (error) {
               console.error("Error during final output API call:", error);
